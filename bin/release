@@ -3,5 +3,5 @@
 cat <<EOF
 ---
 default_process_types:
-  web: bin/start_mc_server; 
+  web: bash bin/start_mc_server; 
 EOF
