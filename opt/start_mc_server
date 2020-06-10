@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-$HOME/bin/${SHELLINABOX_WRAPPER_SCRIPT_NAME:-'start_shellinabox.sh'}
+$HOME/bin/${SHELLINABOX_WRAPPER_SCRIPT_NAME:-'start_shellinabox.sh'} &
 shellinabox_pid=$!
 
 $HOME/bin/${DROPBOX_RESTORE_SCRIPT_NAME:-'restore_dropbox.sh'}
@@ -29,10 +29,10 @@ screen -X "logfile 1" && sleep 1
 eval "tail -f screenlog.0 &"
 tail_pid=$!
 
-$HOME/bin/${NGROK_WRAPPER_SCRIPT_NAME:-'start_ngrok.sh'}
+$HOME/bin/${NGROK_WRAPPER_SCRIPT_NAME:-'start_ngrok.sh'} &
 ngrok_pid=$!
 
-$HOME/bin/${DROPBOX_STARTUP_SCRIPT_NAME:-'start_continuous_backup_dropbox.sh'}
+$HOME/bin/${DROPBOX_STARTUP_SCRIPT_NAME:-'start_continuous_backup_dropbox.sh'} &
 dropbox_pid=$!
 
 
