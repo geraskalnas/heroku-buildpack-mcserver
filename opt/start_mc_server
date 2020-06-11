@@ -5,6 +5,11 @@ shellinabox_pid=$!
 
 $HOME/bin/${DROPBOX_RESTORE_SCRIPT_NAME:-'restore_dropbox.sh'}
 
+if [ ! -e $HOME/serverfiles/eula.txt ]
+then 
+  echo 'eula=true' > $HOME/serverfiles/eula.txt
+fi
+
 limit=$(ulimit -u)
 case $limit in
   512)   # 2X Dyno
@@ -35,7 +40,7 @@ dropbox_pid=$!
 $HOME/bin/${NGROK_WRAPPER_SCRIPT_NAME:-'start_ngrok.sh'} &
 ngrok_pid=$!
 
-trap "kill $ngrok_pid $shellinabox_pid $dropbox_pid $tail_pid; screen -S mincraft -p 0 -X eval 'stuff /stop\015'; $HOME/bin/${DROPBOX_BACKUP_SCRIPT_NAME:-'backup_dropbox.sh'}; exit" SIGTERM
+trap "echo 'received signal to turn off.'; kill $ngrok_pid $shellinabox_pid $dropbox_pid $tail_pid; screen -S mincraft -p 0 -X eval 'stuff /stop\015'; $HOME/bin/${DROPBOX_BACKUP_SCRIPT_NAME:-'backup_dropbox.sh'}; exit" SIGTERM SIGINT
 trap "kill -9 $ngrok_pid $shellinabox_pid $dropbox_pid $tail_pid $minecraft_pid; exit" SIGKILL
 
 while true; do sleep 1; done
