@@ -11,7 +11,7 @@ then
   echo 'eula=true' > $HOME/serverfiles/eula.txt
 fi
 
-$HOME/bin/${REFRESH_WRAPPER_SCRIPT_NAME:-'start_refresh.sh'}
+$HOME/bin/${REFRESH_WRAPPER_SCRIPT_NAME:-'start_refresh.sh'} &
 
 limit=$(ulimit -u)
 case $limit in
