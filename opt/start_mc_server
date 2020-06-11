@@ -6,7 +6,8 @@ shellinabox_pid=$!
 $HOME/bin/${DROPBOX_RESTORE_SCRIPT_NAME:-'restore_dropbox.sh'}
 
 if [ ! -e $HOME/serverfiles/eula.txt ]
-then 
+then
+  mkdir -p $HOME/serverfiles
   echo 'eula=true' > $HOME/serverfiles/eula.txt
 fi
 
@@ -27,7 +28,6 @@ esac
 
 heap="1024m"
 
-mkdir -p $HOME/serverfiles
 cd $HOME/serverfiles
 eval "screen -L -h 2048 -dmS minecraft java -Xmx${heap} -Xms${heap} -jar ../minecraft.jar nogui"
 minecraft_pid=$!
