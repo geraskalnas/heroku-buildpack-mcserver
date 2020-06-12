@@ -32,11 +32,14 @@ curl -o $1/minecraft.jar -s -L $minecraft_url
 
 cp $BP_DIR/opt/start_mc_server $1/bin/start_mc_server
 
-cat <<EOF > $1/login.sh # for login via shellinabox
+if [ ! -f $1/login.sh ]
+then
+  cat <<EOF > $1/login.sh # for login via shellinabox
 #!/usr/bin/env bash
 
 source $HOME/saved_env.sh
 
 bash
 EOF
-chmod +x $1/login.sh
+  chmod +x $1/login.sh
+fi
