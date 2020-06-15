@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if ! eval ${REFRESH_CONDITION:-"[ true ]"}
+then
+exit
+fi
+
 $HOME/bin/${SHELLINABOX_WRAPPER_SCRIPT_NAME:-'start_shellinabox.sh'} &
 shellinabox_pid=$!
 
