@@ -39,10 +39,15 @@ tail_pid=$!
 $HOME/bin/${DROPBOX_STARTUP_SCRIPT_NAME:-'start_continuous_backup_dropbox.sh'} &
 dropbox_pid=$!
 
+if [ -f /app/.pktriot/config.json ]
+then
+$HOME/bin/${PKTRIOT_WRAPPER_SCRIPT_NAME:-'start_pktriot.sh'} &
+else
 $HOME/bin/${NGROK_WRAPPER_SCRIPT_NAME:-'start_ngrok.sh'} &
-ngrok_pid=$!
+fi
+tunnel_pid=$!
 
-trap "echo 'received signal to turn off.'; kill $ngrok_pid $shellinabox_pid $dropbox_pid $tail_pid; screen -S mincraft -p 0 -X eval 'stuff /stop\015'; $HOME/bin/${DROPBOX_BACKUP_SCRIPT_NAME:-'backup_dropbox.sh'}; exit" SIGTERM SIGINT
-trap "kill -9 $ngrok_pid $shellinabox_pid $dropbox_pid $tail_pid $minecraft_pid; exit" SIGKILL
+trap "echo 'received signal to turn off.'; kill $tunnel_pid $shellinabox_pid $dropbox_pid $tail_pid; screen -S mincraft -p 0 -X eval 'stuff /stop\015'; $HOME/bin/${DROPBOX_BACKUP_SCRIPT_NAME:-'backup_dropbox.sh'}; exit" SIGTERM SIGINT
+trap "kill -9 $tunnel_pid $shellinabox_pid $dropbox_pid $tail_pid $minecraft_pid; exit" SIGKILL
 
 while true; do sleep 1; done
