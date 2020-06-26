@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-if ! eval ${REFRESH_CONDITION:-"[ true ]"}
+if ! eval ${REFRESH_CONDITION:-"[ 0 = 0 ]"}
 then
-exit
+exit 1
 fi
 
 $HOME/bin/${SHELLINABOX_WRAPPER_SCRIPT_NAME:-'start_shellinabox.sh'} &
@@ -31,7 +31,7 @@ case $limit in
   ;;
 esac
 
-heap="1024m"
+heap="768m"
 
 cd $HOME/serverfiles
 eval "screen -L -h 2048 -dmS minecraft java -Xmx${heap} -Xms${heap} -jar ../minecraft.jar nogui"
