@@ -19,7 +19,7 @@ fi
 $HOME/bin/${REFRESH_WRAPPER_SCRIPT_NAME:-'start_refresh.sh'} &
 
 
-eval "screen -L -h 2048 -dmS minecraft $HOME/bin/start_mc_server" &
+eval "screen -L -h 2048 -dmS minecraft $HOME/bin/start_mc_service" &
 minecraft_pid=$!
 
 screen -X "logfile 1" && sleep 1
