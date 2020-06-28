@@ -18,23 +18,7 @@ fi
 
 $HOME/bin/${REFRESH_WRAPPER_SCRIPT_NAME:-'start_refresh.sh'} &
 
-limit=$(ulimit -u)
-case $limit in
-  512)   # 2X Dyno
-  heap="768m"
-  ;;
-  32768) # PX Dyno
-  heap="4g"
-  ;;
-  *)     # 1X Dyno
-  heap="384m"
-  ;;
-esac
-
-heap="512m"
-
-cd $HOME/serverfiles
-eval "screen -L -h 2048 -dmS minecraft java -Xmx${heap} -Xms${heap} -jar ../minecraft.jar nogui"
+$HOME/bin/start_mc_service &
 minecraft_pid=$!
 
 screen -X "logfile 1" && sleep 1

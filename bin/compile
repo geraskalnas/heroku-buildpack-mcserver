@@ -30,7 +30,7 @@ minecraft_url=${MINECRAFT_URL:-"https://cdn.getbukkit.org/spigot/${minecraft_ver
 echo -n "-----> Installing Minecraft ${minecraft_version}... "
 curl -o $1/minecraft.jar -s -L $minecraft_url
 
-cp $BP_DIR/opt/start_mc_server $1/bin/start_mc_server
+cp $BP_DIR/opt/* $1/bin/
 
 if [ ! -f $1/login.sh ]
 then
