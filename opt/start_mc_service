@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+limit=$(ulimit -u)
+case $limit in
+  512)   # 2X Dyno
+  heap="768m"
+  ;;
+  32768) # PX Dyno
+  heap="4g"
+  ;;
+  *)     # 1X Dyno
+  heap="384m"
+  ;;
+esac
+
+heap="512m"
+
+cd $HOME/serverfiles
+
+while [ 1 ]
+do
+java -Xmx${heap} -Xms${heap} -jar ../minecraft.jar nogui
+echo 'minecraft crashed. Restarting.'
+done
