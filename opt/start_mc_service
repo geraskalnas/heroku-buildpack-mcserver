@@ -18,7 +18,7 @@ heap="512m"
 cd $HOME/serverfiles
 while [ 1 ]
 do
-eval "screen -L -h 2048 -dmS minecraft java -Xmx${heap} -Xms${heap} -jar ../minecraft.jar nogui"
+screen -L -h 2048 -mS minecraft java -Xmx${heap} -Xms${heap} -jar ../minecraft.jar nogui
 echo "minecraft crashed. Restarting."
 sleep 1
 done
